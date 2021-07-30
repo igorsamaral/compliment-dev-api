@@ -42,14 +42,14 @@ Instalando dependências
 yarn
 ```
 
-Rodando as migrations
-```
-yarn typeorm migrate:run
-```
-
 Iniciando a aplicação em http://localhost:3333
 ```
 yarn dev
+```
+
+Rodando as migrations
+```
+yarn typeorm migration:run
 ```
 
 ### Endpoints
