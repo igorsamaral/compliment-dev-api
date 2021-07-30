@@ -21,6 +21,7 @@ Nessa API é possível você cadastrar usuários, cadastrar Tags e inserir elogi
 - Express
 - Sqlite
 - TypeORM
+- Class Transformer
 - Json Web Token
 - Jest
 
@@ -51,27 +52,89 @@ Iniciando a aplicação em http://localhost:3333
 yarn dev
 ```
 
-### Modo de uso
+### Endpoints
 
+Cadastrar novo usuário
 ```
-### Cadastre novos usuários (post: {baseUrl}/users)
-- Campos obrigatórios  
-  - name - string
-  - email - string
-  - password - string
+HTTP: POST
+{baseUrl}/users
 
-- Campo opcional (padrão: false)
-  - admin - boolean
+{
+  "name": "Pedro Cabral",
+  "email": "pedro.cabral@gmail.com",
+  "password": "root",
+  "admin": true
+}
 
-### Cadastre novas Tags (post: {baseUrl}/tags)
-- Campos obrigatórios  
-  - name - string
+admin: (optional, default: false)
+```
 
-### Cadastre novos elogios (post: {baseUrl}/compliments)
-- Campos obrigatórios  
-  - tag_id - string uuid (tag)
-  - user_receiver - string uuid (user)
-  - message - string
+Listar usuários
+```
+HTTP: GET
+{baseUrl}/users
+
+Rota protegida: Coloque seu Token em Auth Bearer
+```
+
+Cadastrar nova tag
+```
+HTTP: POST
+{baseUrl}/tags
+
+{
+  "name": "Profissionalismo",
+}
+
+Rota protegida: Coloque seu Token em Auth Bearer
+Precisa ser admin = true
+```
+
+Lista tags
+```
+HTTP: GET
+{baseUrl}/tags
+```
+
+Cadastrar novo elogio
+```
+HTTP: POST
+{baseUrl}/compliments
+
+{
+  "tag_id": "__UUID_DO_USUÁRIO__",
+  "user_receiver": "__UUID_DO_USUÁRIO__",
+  "message": "Parabéns pelo seu compromisso!"
+}
+
+Rota protegida: Coloque seu Token em Auth Bearer
+```
+
+Listar elogios enviados
+```
+HTTP: GET
+{baseUrl}/users/compliments/sent
+
+Rota protegida: Coloque seu Token em Auth Bearer
+```
+
+Listar elogios recebidos
+```
+HTTP: GET
+{baseUrl}/users/compliments/received
+
+Rota protegida: Coloque seu Token em Auth Bearer
+```
+
+Autenticar (LogIn)
+```
+HTTP: POST
+{baseUrl}/login
+
+{
+  "email": "__SEU_EMAIL__",
+  "password": "__SUA_SENHA__"
+}
 ```
 
 ### Como se autenticar na API
